@@ -335,6 +335,6 @@ java Learning.java
 | Methods declaration | void method();      | No       | Any top-level element inside the class     |
 
 ## Other observation
-k
+
 * Multiple classes can be defined in the same file, but only one of them is allowed to be public.
 * A file is also allowed to have neither class be public. As long as there isn’t more than one public class in a file, it is okay.
