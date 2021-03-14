@@ -223,7 +223,7 @@ Wildcards only match classes names, not packages included
 
 import java.nio.*; // WRONG
 import java.nio.*.*; // WRONG - Only one wildcard allowed
-import java.nio.file.Paths.* // WRONG - cannot import methods or attributes - Just classes
+import java.nio.file.Paths.*; // WRONG - cannot import methods or attributes - Just classes
 ```
 
 ### Naming conflits
@@ -285,4 +285,56 @@ javac packagea/*.java packageb/*.java
 ```
 
 ## Using an Alternate Directory
+With `-d` option it's possible to set a different directory to keep compiled classes .class
 
+```java
+javac -d classes packagea/ClassA.java packageb/ClassB.java
+
+/*
+├── packagea
+│   ├── ClassA.java
+├── packageb
+│   ├── ClassB.java
+├── classes
+│   ├── ClassA.class
+│   ├── ClassB.class
+*/
+```
+To run the program with a specific classpath so Java knows where to find the classes `-cp or -classpath or --class-path`
+
+```bash
+java -cp classes packageb.ClassB
+java -classpath classes packageb.ClassB
+java --class-path classes packageb.ClassB
+```
+
+| Command    | Option                                        |  Description                                      |
+|------------|-----------------------------------------------|:-------------------------------------------------:|
+| java javac |    -cp <classpath>                            | Location of classes needed to compile the program |
+| java javac |    -classpath <classpath>                     |                       //                          |
+| java javac |    --class-path <classpath>                   |                       //                          |
+| javac      |    -d <dir>                                   |  Directory to place generated class files         |
+
+## JAR files
+Soon...
+
+## Running a Program in One Line with Packages
+
+```bash
+java Learning.java
+```
+
+## Ordering elements in a class
+
+| Element             | Example             | Required | Where does it goes?                        |
+|---------------------|---------------------|----------|--------------------------------------------|
+| Package declaration | package abc;        | No       | First line in the file                     |
+| Import statement    | import java.util.*; | No       | Immediately after the package (if present) |
+| Class declaration   | public class C      | Yes      | Immediately after the import (if any)      |
+| Fields declaration  | int value;          | No       | Any top-level element inside the class     |
+| Methods declaration | void method();      | No       | Any top-level element inside the class     |
+
+## Other observation
+k
+* Multiple classes can be defined in the same file, but only one of them is allowed to be public.
+* A file is also allowed to have neither class be public. As long as there isn’t more than one public class in a file, it is okay.
