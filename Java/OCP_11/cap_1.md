@@ -187,3 +187,102 @@ Rules:
 | For any program                          |        For programs with one                     |
 | Can import code in any available Java library | Can only import code that came with the JDK |
 
+## Package declaration and Imports
+
+```java
+package br.com.example; //1 - package declaration - optional
+
+import java.util.*; //2 - import libraries - optional
+import java.lang.*;
+
+public class ImportExample { //class declaration - mandatory
+    public static void main(String[] args) { 
+        Random r = new Random(); 
+        System.out.println(r.nextInt(10));
+    } 
+}
+```
+
+`You might think that including so many classes slows down your program execution, but it doesn’t. The compiler figures out what’s actually needed.`
+
+### Redundancy in imports
+
+1 - **Every new Java program already have java lang imported by default**
+
+2 - **Java follows order from top to bottom on imports**
+
+3 - **Classes in the same package doesn't have to be imported**
+
+### Wildcards
+
+Wildcards only match classes names, not packages included
+
+```java
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
+
+import java.nio.*; // WRONG
+import java.nio.*.*; // WRONG - Only one wildcard allowed
+import java.nio.file.Paths.* // WRONG - cannot import methods or attributes - Just classes
+```
+
+### Naming conflits
+Java doesn't allow to import two classes from different packages with the same name (**Compilation error**) using wildcards. 
+
+```java
+//Both have Date classes
+import java.util.*;
+import java.sql.*;
+
+public class Ex(){
+    public static void main(String... args){
+        Date date = new Date(); // COMPILATION ERROR
+    }
+}
+```
+
+Two things can be done to solve this problem
+
+1 - Explicit import (no wildcard) will take precedence.
+
+```java
+import java.util.Date;
+import java.sql.*;
+
+public class Ex(){
+    public static void main(String... args){
+        Date date = new Date(); // Date from util
+    }
+}
+```
+
+2 - If needed to really use two classes with same from different packages than we need to declare a fully qualified class name
+
+```java
+import java.util.Date;
+
+public class Ex(){
+    public static void main(String... args){
+        Date date = new Date(); // Date from util
+        java.sql.Date sqlDate; 
+
+        //or
+
+        java.util.Date date;
+        java.sql.Date date2;
+    }
+}
+```
+
+## Compiling and running code with packages
+
+```bash 
+javac packagea/ClassA.java packageb/ClassB.java
+#or
+javac packagea/*.java packageb/*.java
+
+# Attention: Wildcard don't include subdirectories. Ex: packagea/subpacka/Class.java would not be compiled
+```
+
+## Using an Alternate Directory
+
