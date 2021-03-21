@@ -136,3 +136,159 @@ double reallyUgly = 1__________2; // Ugly, but compiles
 ```
 
 ## Using Reference Types
+A reference type refers to an object (an instance of a class). Unlike primitive types that
+hold their values in the memory where the variable is allocated, **references do not hold the value of the object they refer to**.
+
+```java
+java.util.Date today = new java.util.Date();
+String greeting = new String("Hey you");
+```
+
+`today`is a java.util.Date reference and can only reference to it. `greeting`is a String reference to an String object and can only reference String.
+
+* A reference can be assigned to another object of the same or compatible type.
+* A reference can be assigned to a new object using the new keyword.
+
+### Reference vs Primitives
+
+1 - References types can be assigned to _null_. `null` means that we're not referencing to an object.
+2 - Reference types can be used to call method _assuming the reference is not null_. If we try to call a method or attribute by a null reference we get a `NullPointerException`.
+
+
+## Variables
+
+### Declaring variables
+
+```java
+//Type variableName = new Object() or primitive_value
+
+//Just declaration
+String zooName;
+int numberAnimals;
+
+// initializing
+zooName = "The Best Zoo"; 
+numberAnimals = 100;
+
+//Declaration and initialization
+String zooName = "The Best Zoo";
+int numberAnimals = 100;
+```
+
+### Variable names
+
+An identifier is the name of a variable, method, class, interface, or package.
+
+There are only 4 rules to remember for legal identifiers
+
+* Identifiers must begin with a letter, a $ symbol, or a _ symbol. 
+* Identifiers can include numbers **but not start with them**.
+* Since Java 9, **a single underscore _ is not allowed** as an identifier.
+* You cannot use the same name as a Java **reserved word**. 
+
+```java
+//VALID
+long okidentifier;
+float $OK2Identifier;
+boolean _alsoOK1d3ntifi3r;
+char __SStillOkbutKnotsonice$;
+
+//INVALID
+int 3DPointClass; // identifiers cannot begin with a number 
+byte hollywood@vine; // @ is not a letter, digit, $ or _ 
+String *$coffee; // * is not a letter, digit, $ or _ double public; // public is a reserved word
+short _ ; // a single underscore is not allowed
+```
+
+### Declaring Multiple Variables
+
+ You can declare many variables in the same declaration as long as they are all of the **same type**.
+
+ ```java
+void sandFence() {
+    //Only it is initialized - i0 and i1 are just declared
+    int i0, i1, it = 0;
+    String s1, s2;
+    String s3 = "yes", s4 = "no";
+
+    int num, String value; // DOES NOT COMPILE
+    double d1, double d2; // DOES NOT COMPILE
+    int i1; int i2; // LEGAL - There's a semicolon between them
+    int i3; i4; // DOES NOT COMPILE
+
+}
+ ```
+
+ ### Initializing Variables
+
+Before you can use a variable, it needs a value. A local variable is a variable defined within a constructor, method, or initializer block.
+
+```java
+public int notValid() { 
+    int y = 10;
+    int x;
+    int reply = x + y; // DOES NOT COMPILE 
+    return reply;
+}
+
+public int notValid() { 
+    int y = 10;
+    int x;
+    x = 1;
+    int reply = x + y; // COMPILE 
+    return reply;
+}
+```
+The compiler is also smart enough to recognize initializations that are more complex.
+
+```java
+public void findAnswer(boolean check) { 
+    int answer;
+    int otherAnswer; 
+    int onlyOneBranch; 
+    
+    if (check) {
+        onlyOneBranch = 1;
+        answer = 1; 
+    } else {
+        answer = 2; 
+    }
+    
+    System.out.println(answer);
+    System.out.println(onlyOneBranch); // DOES NOT COMPILE 
+}
+```
+**Remember, the compiler is only concerned if you try to use uninitialized local variables; it doesn’t mind the ones you never use.**
+
+### Passing Constructor and Method Parameters
+
+To pass a variable through some constructor or method it should be initialized before passing.
+
+```java
+public void findAnswer(boolean check) {}
+
+public void checkAnswer() {
+    boolean value;
+    findAnswer(value); // DOES NOT COMPILE
+}
+```
+### Instance and Class Variable
+
+An instance variable, often called a field, is a value defined within a specific instance of an object. A class variable is one that is defined on the class level and shared among all instances of the class. You can tell a vari- able is a class variable because it has the keyword `static` before it.
+
+Instance and class variables do not require you to initialize them. They are initialized with a default value.
+
+| Variable Type | Default value |
+|---------|--------------- |
+| boolean | `false`       |
+| byte    | 0             |
+| char    | '\u0000' (NUL)|
+| short   | 0   |
+| int     | 0   |
+| long    | 0   |
+| float   | 0.0 |
+| double  | 0.0 |
+| Objects | null |
+
+## The local variable type inference (var)
+
