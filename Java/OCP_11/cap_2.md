@@ -293,3 +293,129 @@ Instance and class variables do not require you to initialize them. They are ini
 
 ## The local variable type inference (var)
 
+Starting in Java 10, you have the option of using the keyword var instead of the type for local variables under certain conditions.
+
+```java
+class Test{
+    var s = "tricky"; //DOES NOT COMPILE
+
+    public void whatTypeAmI() { 
+        var name = "Hello"; //String
+        var size = 7; //int
+    }
+
+    public void varNotAParameter(var s){} //DOES NOT COMPILE
+}
+```
+
+Local variable type inference works with local variables and not instance variables.
+
+Local variables declared with var have its type defined in **Compile time**, so, they cannot be reassigned to another type in **Run time**.
+
+
+```java
+class Test{
+    public void whatTypeAmI() { 
+        var name = "Hello"; //String
+        name = "Hi";
+        name = 7; //DOES NOT COMPILE
+    }
+}
+```
+
+Local variables with *var* must be assigned after declared
+
+```java
+class Test{
+    public void whatTypeAmI() { 
+        var name = "Hello"; //String
+        var x; //DOES NOT COMPILE
+        
+        var y
+            = 1L; //long
+    }
+}
+```
+
+**Java does not allow var in multiple variable declarations.**
+
+Java does not accept var s = null because `null` value can be refered to any Object type. But it's possible to reassign `var` variable to `null` after it's assigned to any reference Object type.
+```java
+class Test{
+    public void whatTypeAmI() { 
+        int a, var b = 3; // DOES NOT COMPILE
+
+        var n = null; // DOES NOT COMPILE
+        var o = (String)null;
+
+        var m = 1;
+        m = null; //DOES NOT COMPILE - primitive int cannot be null
+
+        var x = "String";
+        x = null;
+    }
+}
+```
+
+**`var` isn't a reserved word**. `var` is considered a reserved type name. A reserved type name means **it cannot be used to define a type, such as a class, interface, or enum**
+
+```java
+public class Var { 
+    public void var() { 
+        var var = "var";
+    }
+    
+    public void Var() {
+        Var var = new Var(); 
+    }
+}
+```
+
+```java
+public class var { // DOES NOT COMPILE 
+    public var() {}
+}
+```
+
+### Review of var Rules
+1. A var is used as a local variable in a constructor, method, or initializer block.
+2. A var cannot be used in constructor parameters, method parameters, instance vari- ables, or class variables.
+3. A var is always initialized on the same line (or statement) where it is declared.
+4. The value of a var can change, but the type cannot.
+5. A var cannot be initialized with a null value without a type.
+6. A var is not permitted in a multiple-variable declaration.
+7. A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
+
+## Variable Scope
+
+Variable declared in larger scopes can be accessed in inner nested scopes.
+
+```java
+public void eatIfHungry(boolean hungry) { 
+    
+    if (hungry) {
+        int bitesOfCheese = 1;
+    } // bitesOfCheese goes out of scope here
+    
+    System.out.println(bitesOfCheese); // DOES NOT COMPILE
+}
+```
+
+```java
+public void eatIfHungry(boolean hungry) { 
+    if (hungry) {
+        int bitesOfCheese = 1; 
+        {
+            var teenyBit = true;
+            System.out.println(bitesOfCheese); 
+        }
+    }
+    System.out.println(teenyBit); // DOES NOT COMPILE }
+```
+
+* Local variables: In scope from declaration to end of block
+* Instance variables: In scope from declaration until object eligible for garbage collection
+* Class variables: In scope from declaration until program ends
+
+## Garbage Collection
+
