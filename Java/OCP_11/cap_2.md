@@ -419,3 +419,34 @@ public void eatIfHungry(boolean hungry) {
 
 ## Garbage Collection
 
+JVM automatically takes care of object destruction. **Garbage collection** refers to the process of automatically freeing memory on the heap by deleting objects that are no longer reachable in your program.
+
+All Java objects are stored in your program memory’s heap. The heap, which is also referred to as the free store, represents a large pool of unused memory allocated to your Java application.
+
+There’s very little you can do to control garbage collection directly in Java.
+
+In Java and other languages, eligible for garbage collection refers to an object’s state of no longer being accessible in a program and therefore able to be garbage collected.
+
+* Does this mean an object that’s eligible for garbage collection will be immediately garbage collected? 
+  * Definitely not.
+
+Java includes a built-in method to help support garbage collection that can be called at
+any time.
+
+```java
+public static void main(String[] args) { 
+    System.gc();
+}
+```
+
+* What is the `System.gc()` command guaranteed to do? 
+  * **Nothing,** actually. It merely *suggests* that the JVM kick off garbage collection. 
+
+* When is System.gc() guaranteed to be called by the JVM? 
+    * **Never**, actually.
+
+### Tracing Eligibility for GC
+
+1. The object no longer has any references pointing to it. 
+2. All references to the object have gone out of scope.
+3. It is the object that gets garbage collected, not its reference.
