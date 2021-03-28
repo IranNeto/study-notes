@@ -1,3 +1,7 @@
-# study-notes
+# Study notes
 
-Some notes about some topics :)
+For every topic I'm studying == More notes about the subjects
+
+Fell welcome to use, fork or open a issue to discuss about it. 
+
+> "Seek knolegde" (Bilu, ET)
