@@ -455,4 +455,6 @@ public static void main(String[] args) {
 
 ```
 * String has a .lenght()
+* A local variable cannot receive a default number. Try to use a local variable without assinging to it a value generates a COMPILE ERROR
+* 
 ```
