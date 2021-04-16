@@ -450,3 +450,11 @@ public static void main(String[] args) {
 1. The object no longer has any references pointing to it. 
 2. All references to the object have gone out of scope.
 3. It is the object that gets garbage collected, not its reference.
+
+# Important Notes from exercises
+
+```
+* String has a .lenght()
+* A local variable cannot receive a default number. Try to use a local variable without assinging to it a value generates a COMPILE ERROR
+* 
+```
