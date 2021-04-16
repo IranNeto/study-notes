@@ -207,3 +207,128 @@ constructor. Any final instance variables not
 assigned a value will be reported as a compiler error **on the line the constructor is declared.**
 
 ## Inherit Members
+
+### Calling inherited members
+
+It's possible to call parent members (depending on the access modifier) can be accessed by the `this`.
+
+## Inherit Methods
+
+### Override a Method
+
+**Overriding** a method  occurs when a subclass declares a new implementation for an inherted method
+with **the same signature** (Method name and parameters)
+
+To override a method, you must follow:
+
+1 - Method is the child class **must have the same signature** as the parent class
+2 - Method in the child class **must NEVER be more restricted** than the parent class
+3 - Method in the child class child class may not declare a checked exception that
+is new or broader than the class of any exception declared in the parent class method.
+4 - Method in the child class **must return the same or a subtype _covariant return types_** of the method in the
+parent class
+
+`If two methods have the same name but different signatures, the methods are overloaded, not overriden`
+
+Given an inherited return type A and an overriding return type B, can you assign an instance 
+of B to a reference variable for A without a cast? If so, then they are covariant.
+
+## Overriding a Generic Method
+
+### Review of Overloading a Generic Method
+
+Overload means to have the same name and different parameters and/or return type
+
+```java
+public class LongTailAnimal {
+    protected void chew(List<Object> input) {}
+    protected void chew(List<Double> input) {} // DOES NOT COMPILE
+}
+```
+
+In the example above List is the class type of the parameter, so even if the methods
+were in different classes, overloading methods wouldn't work either.
+
+### Overriding generic methods
+
+`you can override a method with generic parameters, but you must match the signature 
+including the generic type exactly.`
+
+
+```java
+
+public class LongTailAnimal {
+    protected void chew(List<String> input) {}
+}
+
+public class Anteater extends LongTailAnimal { 
+    protected void chew(List<String> input) {} //OVERRIDEN
+}
+```
+The example below is not an override operation but a overload operation. Because
+the signature is not the same.
+
+```java
+public class LongTailAnimal {
+    protected void chew(List<Object> input) {}
+}
+    
+public class Anteater extends LongTailAnimal { 
+    protected void chew(ArrayList<Double> input) {}
+}
+```
+
+Java also supports Wildcards
+
+```java
+void sing1(List<?> v) {} // unbounded wildcard 
+void sing2(List<? super String> v) {} // lower bounded wildcard 
+void sing3(List<? extends String> v) {} // upper bounded wildcard
+```
+
+### Generic return types
+
+Working with overridden methods that return generics, the return values must be covariant. 
+In terms of generics, this means that the return type of the class or interface 
+declared in the overriding method must be a subtype of the class defined in the parent class.
+The generic parameter type must match its parent’s type exactly.
+
+ReturnType<Generic> - Override - ReturnType must be covariant and Generic must be the same
+
+```java
+public class Mammal {
+    public List<CharSequence> play() { ... } 
+    public CharSequence sleep() { ... }
+}
+public class Monkey extends Mammal {
+    public ArrayList<CharSequence> play() { ... }
+}
+public class Goat extends Mammal {
+    public List<String> play() { ... } // DOES NOT COMPILE 
+    public String sleep() { ... }
+}
+```
+
+## Redeclaring priuvate methods
+
+In Java, you can’t override private methods since they are not inherited.
+
+Java permits you to redeclare a new method in the child class with the same or modified signature
+as the method in the parent class.
+
+## Hiding Static Methods
+
+Hidding methods occurs with static members. All the four rules of override a method continues with
+one addition
+
+5 - The method defined in the child class must be marked as static if it is marked as static in a parent class.
+ 
+`Put simply, it is method hiding if the two methods are marked static, and method over- riding if they 
+are not marked static.`
+
+## Creating final methods
+
+`final methods cannot be replaced`. By marking a method final, you forbid a child class from replacing this method.
+
+## Hiding variables
+
