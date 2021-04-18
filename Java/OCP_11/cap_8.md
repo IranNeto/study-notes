@@ -1,4 +1,4 @@
-#Class Design - Inheritance
+# Class Design - Inheritance
 
 ### Inheritance 
 Inheritance is the process by which a subclass automatically includes any 
