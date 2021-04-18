@@ -223,7 +223,7 @@ To override a method, you must follow:
 
 1 - Method is the child class **must have the same signature** as the parent class
 2 - Method in the child class **must NEVER be more restricted** than the parent class
-3 - Method in the child class child class may not declare a checked exception that
+3 - Method in the child class **may not** declare a checked exception that
 is new or broader than the class of any exception declared in the parent class method.
 4 - Method in the child class **must return the same or a subtype _covariant return types_** of the method in the
 parent class
@@ -331,4 +331,101 @@ are not marked static.`
 `final methods cannot be replaced`. By marking a method final, you forbid a child class from replacing this method.
 
 ## Hiding variables
+
+Java doesn't allow variables to be overriden. Variables can be hidden, though.
+
+A hidden variable occurs when a child class defines a variable with the same name as an inherited variable defined in
+parent class. This creates two distinct copies of the variable within an instance of the child class: child and parent
+instances
+
+## Object vs. Reference
+
+1. The type of the object determines which properties exist within the object in memory.
+2. The type of the reference to the object determines which methods and variables are accessible to the Java program.
+
+### Casting objects
+
+When casting objects, you do not need a cast operator if the current reference is a subtype of the target type.
+This is referred to as an implicit cast or type conversion.
+
+1. Casting a reference from a subtype to a supertype doesn’t require an explicit cast.
+2. Casting a reference from a supertype to a subtype requires an explicit cast.
+3. The compiler disallows casts to an unrelated class.
+4. At runtime, an invalid cast of a reference to an unrelated type results in a ClassCastException being thrown.
+
+##The instanceof Operator
+
+instanceof operator, which can be used to
+check whether an object belongs to a particular class or interface and to prevent ClassCastExceptions at runtime.
+
+`X instanceof Y`
+
+Just as the compiler does not allow casting an object to unrelated types, it also does not allow instanceof 
+to be used with unrelated types. 
+
+## Overriding vs Hiding members
+
+```java
+class Penguin {
+    public static int getHeight() {
+        return 3;
+    }
+
+    public void printInfo() {
+        System.out.println(this.getHeight());
+    }
+}
+
+public class CrestedPenguin extends Penguin {
+    public static int getHeight() {
+        return 8;
+    }
+
+    public static void main(String... fish) {
+        new CrestedPenguin().printInfo(); //PRINT 3
+    }
+}
+```
+Why does it print 3? We're able to call a static method with an instance variable, but the _this_ keyword is related
+to a Penguin instance (polymorphic in the CrestedPenguin).
+
+## Summary
+
+1. Overloaded methods must have the same signature?
+
+False, overloaded methods have the same name but can have different parameters or return type
+
+2. Overridden methods must have the same signature? True
+
+3. Hidden methods must have the same signature? True
+
+4. Overloaded methods must have the same return type? False, explained in 2.
+
+5. Overridden methods must have the same return type? True, must have the same name and parameters
+
+6. Hidden methods must have the same return type? True
+
+**PART II**
+
+1. An overridden method must contain method parameters that are the same or covariant with the 
+method parameters in the inherited method?
+
+False, it must be the same parameters, different parameters are considered overloaded methods not overriden
+
+2. An overridden method may declare a new exception, provided it is not checked?
+
+False, to override a method is may not declare a new exception or a broader one from the parent method
+
+3. An overridden method must be more accessible than the method in the parent class?
+
+False, an overriden method must be more OR with the same access modifier than the method in the parent class
+
+4. An overridden method may declare a broader checked exception than the method in the parent class?
+
+True, with an broader exception in still comprises the exception declared in the parent method
+
+5. If an inherited method returns void, then the overridden version of the method must
+return void?
+   
+True, void doesn't have a covariant type to be used. So, void can be overriden with a void method
 
