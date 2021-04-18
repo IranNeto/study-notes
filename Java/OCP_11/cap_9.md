@@ -112,3 +112,199 @@ initialization of a subclass.
 
 ## Interfaces
 
+An interface is defined with the interface keyword, analogous to the class kwyword.
+
+[access modifier][implicit abstract][interface][Interface name] {
+    Float getSpeed(int age);
+    int MINIMUM_DEPTH = 2;
+}
+
+In interfaces we have implicit modifiers
+
+1. Every method **without a body** inside an interface is public and abstract by nature
+2. Every interface variable is public, static and final by nature.
+
+Interfaces does not requre to define any methods.
+
+Interfaces cannot be instantiated.
+
+Interfaces cannot be marked as final
+
+### Implementing an interface
+```
+[access modifier][class][Class name][implements][InterfaceName1, InterfaceName...]{
+
+    [public (required)][Covariant return type][same method name][same parameters]{
+    
+        ...
+        
+    }
+    
+}
+```
+
+An interface can extend another interface.
+
+Unlike abstract classes, they do not contain constructors and are not part of instance
+initialization. Interfaces simply define a set of rules that a class
+implementing them must follow. 
+
+A top-level class or interface can only be declared with public or
+package-private access.
+
+### Conflicting modifiers
+
+If a developer marks a method or variable with a modifier that conflicts with an
+implicit modifier the code **does not compiles**.
+
+REMEMBER: Not marking with any access modifier inside an interface the compiles
+will automatically set up with public final or static it it's a method or
+an instance variable.
+
+### Differences between interfaces and abstract classes
+
+ When a concrete class implements an interface it must be sure that the overriden methods
+ are marked as public, since it is implicitly public in the interface.
+ 
+### Intheriting an interface
+
+* An interface can extend another interface.
+* A class can implement an interface.
+* A class can extend another class whose ancestor implements an interface.
+
+An interface cannot be extend, just implemented. Also, an interface cannot extend a class.
+
+### Duplicate interface method declaration
+
+What would happen with a class 2 interfaces with the same method
+signature?
+
+As they having identical method declaration, it would be *compatible*.
+
+If two abstract interface methods have identical behaviors—or in
+this case the same method declaration—you just need to be able to create
+a single method that overrides both inherited abstract methods at the same
+time.
+
+If the methods have different method signatures and same return type,
+then the methods are overloaded
+and the class who implements it must implement all the methods.
+
+If the methods have the same signature but different return types than
+it must be analysed if they are covariant, if it is, then the class must
+implement that with the **smaller scope** to be compliant with the method
+with broader return type.
+
+The compiler would also throw an exception if you define an abstract
+class or interface that inherits from two conflicting abstract types.
+
+## Polymorphism and interfaces
+
+When working with abstract types, you may prefer to work with the
+abstract reference types, rather than the concrete class.
+
+Why? It's easier to not depend on a class implementation. We rely on an interface
+that have an specific method that we use. Therefore, any instance that is covariant
+of the interface will be able to perform the same instruction. It can be used interchangeably
+and it is compliant with the Liskov Substitute Principle from SOLID.
+
+### Casting interfaces
+
+```java
+interface Canine {}
+
+class Dog implements Canine {} class Wolf implements Canine {}
+
+public class BadCasts {
+    public static void main(String[] args) {
+        Canine canine = new Wolf();
+        Canine badDog = (Dog)canine; 
+    } 
+}
+```
+
+#### Interface limitation
+In the example above, the code compiles. . Because of polymorphism, Java cannot be
+sure which specific class type the canine instance. Therefore, it allows the invalid
+cast to the Dog reference, even when they are not related. So code throws a
+ClassCastException at runtime.
+
+The compiler does not allow a cast from an interface reference to an object reference
+if the object type does not implement the interface.
+
+### Interfaces and the instanceof Operator
+
+With interfaces, the compiler has limited ability to enforce this rule because even
+though a reference type may not implement an interface, one of its subclasses could.
+```java
+
+Number tickets = 5;
+if(tickets instanceof List) {}
+if(tickets instanceof String) {} // DOES NOT COMPILE
+
+```
+
+In this case `tickets instanceof List` compiles because the compile can be sure that
+tickets may be a Number sublass that implements List. 
+
+````java
+public class MyNumber extends Number implements List{}
+````
+
+Even though, the code throw a ClassCastException.
+
+the compiler can check for unrelated interfaces if the reference is
+a class that is marked final.
+
+```java
+Integer tickets = 6;
+if(tickets instanceof List) {} // DOES NOT COMPILE
+```
+
+The compiler rejects this code because the Integer class is marked
+final and does not inherit List. Therefore, it is not possible to create
+a subclass of Integer that inherits the List interface.
+
+## Summary
+
+### Interface definition
+
+1. Interfaces cannot be instantiated.
+2. All top-level types, including interfaces, cannot be marked
+protected or private.
+3. Interfaces are assumed to be abstract and cannot be marked final.
+4. Interfaces may include zero or more abstract methods.
+5. An interface can extend any number of interfaces.
+6. An interface reference may be cast to any reference that inherits
+the interface, although this may produce an exception at runtime if the 
+lasses aren’t related.
+7. The compiler will only report an unrelated type error for an
+instanceof operation with an interface on the right side if the
+reference on the left side is a final class that does not inherit
+the interface.
+
+### Abstract Interface Method
+
+1. Abstract methods can be defined only in abstract classes or interfaces.
+2. Abstract methods cannot be declared private or final.
+3. Abstract methods must not provide a method body/implementation
+in the abstract class in which is it declared.
+4. Implementing an abstract method in a subclass follows the same
+rules for overriding a method, including covariant return types, exception
+declarations, etc.
+5. Interface methods without a body are assumed to be abstract and public.
+
+### Interface variables
+
+1. Interface variables are assumed to be public, static, and final.
+2. Because interface variables are marked final, they must be initialized
+with a value when they are declared.
+
+## Inner classes
+
+A member inner class is a class defined at the member level of a class
+(the same level as the methods, instance variables, and constructors).
+
+A member inner class can contain many of the same methods and variables
+as a top-level class. Some members are disallowed in member inner classes,
+such as static members.
