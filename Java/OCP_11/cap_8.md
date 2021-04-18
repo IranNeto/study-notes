@@ -429,3 +429,116 @@ return void?
    
 True, void doesn't have a covariant type to be used. So, void can be overriden with a void method
 
+**PART III**
+
+1. An object may be cast to a subtype without an explicit cast?
+
+False, casting a broader type to a subtype requires an explicit casting.
+
+2. If the type of a method argument is an interface, then a reference variable that implements 
+the interface may be passed to the method?
+
+True.
+
+3. A method that takes a parameter with type java.lang.Object can be passed any variable?
+
+True. Since all objects extends java.lang.Object. A subtype can behave as its supertype.
+That's polymorphism.
+
+4. All cast exceptions can be detected at compile-time?
+
+False, some exceptions can be thrown at run time.
+
+5. By defining a final instance method in the superclass, you guarantee that the specific
+   method will be called in the parent class at runtime?
+
+False, a final method does not mean that it is mandatory to be called at some point
+
+6. Polymorphism applies only to classes, not interfaces?
+
+False, can be applied to classes and interfaces.
+
+**PART IV**
+
+1. A class can directly extend any number of classes?
+
+False, it can directly extend just one.
+
+2. A class can implement any number of interfaces?
+
+True, interfaces can be implemented in a class as many as it needs
+
+3. All variables inherit Object
+
+True.
+
+4. If class A is extended by B, then B is a superclass of A?
+
+False, B is a subtype of A.
+
+5. If class C implements interface D, then C is a subtype of D?
+
+True.
+
+6. Multiple inheritance is the property of a class to have multiple direct superclasses?
+
+True.
+
+**PART V**
+
+1. Instance variables can be overridden in a subclass?
+
+False, It's not possible to override an instance variable. This is called hiding.
+
+2. If an instance variable is declared with the same name as an inherited variable,
+then the type of the variable must be covariant?
+
+False, instances variables are not overriden.
+
+3. If an instance variable is declared with the same name as an inherited variable, then the access
+modifier must be at least as accessible as the variable in the parent class?
+
+False, instances variables are not overriden to be compliant at the access modifier rule
+
+4. If a variable is declared with the same name as an inherited static variable,
+then it must also be marked static?
+
+False
+
+5. The variable in the child class may not throw a checked exception that is new or broader
+than the class of any exception thrown in the parent class variable?
+
+False, a instance variable cannot throw an exception
+
+**PART VI**
+
+1. this() can be called from anywhere in a constructor?
+
+False, this() must be the first instruction in a constructor
+
+2. this() can be called from anywhere in an instance method?
+
+False, this() must be the first instruction ONLY inside a constructor body
+
+3. this.variableName can be called from any instance method in the class?
+
+True, an instance variable is accessible from anywhere inside the class
+
+4. this.variableName can be called from any static method in the class?
+
+False, *this* keyword cannot be used inside a static context
+
+5. You can call the default constructor written by the compiler using this()?
+
+False, if this must be the first instruction inside a constructor so you need to
+call inside an custom constructor. When a custom constructor is present inside a class
+it means that the compiler will not generate a default constructor and so this() will not
+compile. 
+
+6. You can access a private constructor with the main() method in the same class?
+
+True. All private members are accessible with the main() since it is present 
+inside the class.
+
+**IMPORTANT**
+`overriding replaces the method regardless of the reference type`
