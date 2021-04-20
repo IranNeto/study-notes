@@ -228,7 +228,7 @@ is new or broader than the class of any exception declared in the parent class m
 4 - Method in the child class **must return the same or a subtype _covariant return types_** of the method in the
 parent class
 
-`If two methods have the same name but different signatures, the methods are overloaded, not overriden`
+`If two methods have the same name but different parameters, the methods are overloaded, not overriden`
 
 Given an inherited return type A and an overriding return type B, can you assign an instance 
 of B to a reference variable for A without a cast? If so, then they are covariant.
@@ -237,7 +237,8 @@ of B to a reference variable for A without a cast? If so, then they are covarian
 
 ### Review of Overloading a Generic Method
 
-Overload means to have the same name and different parameters and/or return type
+Overload means to have the same name and different parameters. If they have the same signature and different return types, 
+it means that they are overrided (wrongly overrided).
 
 ```java
 public class LongTailAnimal {

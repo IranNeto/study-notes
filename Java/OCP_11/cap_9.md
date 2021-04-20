@@ -143,7 +143,7 @@ Interfaces cannot be marked as final
 }
 ```
 
-An interface can extend another interface.
+**An interface extends another interface, not implement it**.
 
 Unlike abstract classes, they do not contain constructors and are not part of instance
 initialization. Interfaces simply define a set of rules that a class
@@ -308,3 +308,5 @@ A member inner class is a class defined at the member level of a class
 A member inner class can contain many of the same methods and variables
 as a top-level class. Some members are disallowed in member inner classes,
 such as static members.
+
+1 - 
