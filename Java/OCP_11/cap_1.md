@@ -19,7 +19,7 @@
         No pointers or operator overloading compared to C++
 
     Secure
-        Jaca tuns inside the JVM that creates a sandbox making it hard for Java code to do eveil things to the computer it's running on.
+        Java tuns inside the JVM that creates a sandbox making it hard for Java code to do eveil things to the computer it's running on.
     
     Multithreaded
 

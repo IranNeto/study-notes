@@ -82,8 +82,8 @@ It is possible to have a module-info.java empty.
 javac --module-path mods -d feeding feeding/zoo/animal/feeding/*.java feeding/module-info.java
 ```
 
-* `-d` indicates the directory to put the class files
 * `--module-path` or `-p` indicates the location of any custom module file that we are depending on?
+* `-d` indicates the directory to put the class files
 *  The last two arguments are java files to be compiled
 
 module-path replaces the classpath option
@@ -91,4 +91,95 @@ module-path replaces the classpath option
 -cp, -class-path, -classpath is still used in nonmodular programs
 
 ## Run the module
+
+```shell script
+java --module-path mods -- module/com.sybex.OCP
+```
+
+* `--module-path` indicates `mods` as the location of modules
+* `--module <module name>` points to existing module's name `book.module`
+* It is important to have the slack to **sepatate module/package**
+* `com.sybex` is the package name
+* `OCP` is the class name
+
+## Packaging a module
+
+```shell script
+java -cvf mods/zoo.animal.feeding.jar -C feeding/ .
+```
+## Diving into the module-info File
+
+`exports` and `requires` are keywords inside a module-info.java
+
+**exports** exports a package to other modules. It's also possible to export a package to a specific module.
+With module-info.java below, ONLY staff module is able to import zoo.talks.content.
+
+```java
+module zoo.anumal.talks {
+    exports zoo.animal.talks.content to zoo.anumal.staff;
+    exports zoo.animal.talks.media;
+    requires zoo.animal.feeding;
+    requires zoo.animal.care;
+}
+```
+Access control with modules
+
+| Level |   Within module code    | Outside module  |
+|-------|-------------------------|-----------------|
+| private | Available only within class | No access |
+| default | Available only within package | No access |
+| protected | Available only within package or to subclasses | Accessible to subclasses only if package is exported |
+| public | Available to all classes | Accessible to subclasses only if package is exported |
+
+`requires moduleName` menas that the current module depends on the _moduleName_. But there's also a `requires transitive`
+which means that any module that requires the current module will also depende on _moduleName_.
+
+**Java doesn't allow to repeat the same module in a requires clause. It is redundant to require a module
+and requires transitively the same module.
+
+## Discovering modules
+
+### Describing a Module. 
+
+Describing an jar file structure
+
+```shell script
+java -p mods -d zoo.animal.feeding
+java -p mods --describe-module zoo.animal.feeding 
+```
+
+_java.base_ is special in every module because it is automatically added as a dependency to all modules.
+
+### Listing available modules
+
+```shell script
+java --list-modules
+
+# All modules that come with java
+java.base@11.0.2
+java.compiler@11.0.2
+java.datatrasnfer@11.0.2
+
+java -p mods --list-modules
+
+#Custom modules and its location
+zoo.animal.care file:///absolutePath/mods/zoo.animal.care.jar 
+zoo.animal.feeding file:///absolutePath/mods/zoo.animal.feeding.jar 
+zoo.animal.talks file:///absolutePath/mods/zoo.animal.talks.jar 
+zoo.staff file:///absolutePath/mods/zoo.staff.jar
+
+java --show-module-resolution -p feeding -m zoo.animal.feeding/zoo.animal.feeding.Task
+
+#Way to debug modules. It spits out when the program starts up then it runs the program
+
+root zoo.animal.feeding file:///absolutePath/feeding/
+java.base binds java.desktop jrt:/java.desktop
+java.base binds jdk.jartool jrt:/jdk.jartool
+...
+jdk.security.auth requires java.naming jrt:/java.naming jdk.security.auth requires java.security.jgss jrt:/java.security.jgss ...
+All fed!
+```
+
+### Using jar command
+
 
