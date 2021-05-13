@@ -40,6 +40,7 @@ The implementation in Java is
 public class QuickSort {
 
     public static int partition(int[] arr, int lo, int hi){
+        //i is an indicator of where the pivot should be after all
         int pivot = arr[hi];
         int i = lo;
         for(int j = lo; j < hi; j++){
@@ -125,7 +126,7 @@ n = array's size
 
 ## Conclusion 
  
-> Although the worst case time complexity of QuickSort is O(n2) which is more than many other sorting algorithms like Merge Sort and Heap Sort, QuickSort is faster 
+> Although the worst case time complexity of QuickSort is O(nˆ2) which is more than many other sorting algorithms like Merge Sort and Heap Sort, QuickSort is faster 
 > in practice, because its inner loop can be efficiently implemented on most architectures, and in most real-world data. QuickSort can be implemented in different 
 > ways by changing the choice of pivot, so that the worst case rarely occurs for a given type of data. However, merge sort is generally considered better when data 
 > is huge and stored in external storage. (Geeks for geeks)
