@@ -21,3 +21,4 @@ Example: https://leetcode.com/problems/running-sum-of-1d-array/
 In some cases we're gonna need to represent states i.e 0 == dead, 1 == alive. But, it we may reach a problem when an in-place solution is required and the neighbors states are part of the problem. 
 So we can expand and create new representional states i.e 2 == dead but before was alive, 3 == alive but before was dead
 
+Example: https://leetcode.com/problems/game-of-life/
