@@ -35,3 +35,8 @@ required. That can be a good trade off depending on the number of update and get
 
 brute force: update O(n**2) getValue O(1)
 clever way: update O(1) getValue O(number of updates)
+
+* Subdivide array in blocks
+
+In this example https://www.geeksforgeeks.org/array-rotation/ METHOD 3 explains a juggling algorithm which is divide the array in m pieces of size GCD. In this
+particular problem m = size/n_rotation. This technique might be useful when the original order has to be maintained.
