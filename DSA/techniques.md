@@ -40,3 +40,7 @@ clever way: update O(1) getValue O(number of updates)
 
 In this example https://www.geeksforgeeks.org/array-rotation/ METHOD 3 explains a juggling algorithm which is divide the array in m pieces of size GCD. In this
 particular problem m = size/n_rotation. This technique might be useful when the original order has to be maintained.
+
+## bit operation
+
+* Bit operations
