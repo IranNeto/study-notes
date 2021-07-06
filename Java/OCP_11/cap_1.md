@@ -60,6 +60,7 @@ The method name and parameter types are **method signature**
 ```java 
 public void setName(String newName)
 ```
+The **method declaration** consists of additional information such as the return type.
 
 ## Comments
 
@@ -316,8 +317,32 @@ java --class-path classes packageb.ClassB
 | javac      |    -d <dir>                                   |  Directory to place generated class files         |
 
 ## JAR files
-Soon...
 
+A _Java Archive_ (JAR) file is like a zip file of mainly Java class files.
+    
+```
+java -cp ".:/tmp/someOtherLocation:/tmp/myJar.jar" myPackage.MyClass
+```
+
+The period (.) indicates you want to inlcude the current directory in the classpath. The rest of the command says to look for loose files (or packages)
+in `someOtherLocation` and within myJar.jar.
+
+### Creating a JAR file
+    
+``` 
+jar -cvf myNewFile.jar .
+jar --create --verbose --file myNewFile.jar .
+jar - cvf myNewFile.jar -C dir . #Specify a directory instead of using the current one
+```
+
+| Command             |  Description                                            |
+|---------------------|---------------------------------------------------------|
+| -c --create         | Creates a new JAR file                                  |
+| -v --verbose        | Prints details when working with JAR files              |
+| -f --filename       | JAR filename                                            |
+| -C <directory>      | Directory containing files to be used to create the JAR |
+
+    
 ## Running a Program in One Line with Packages
 
 ```bash
