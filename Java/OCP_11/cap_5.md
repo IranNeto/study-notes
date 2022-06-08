@@ -3,6 +3,7 @@
 * String Pool
     * What's the String Pool and how does it work?
 * Immutability vs Mutability
+   * Explain the difference between the 2 concepts. Talk about memory.
 * Concatenation
     * How concatanation works in Java?
     * Why using + operator for Strings can be harmfull?
